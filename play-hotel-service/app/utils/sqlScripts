@@ -1,0 +1,59 @@
+CREATE TABLE guest (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,  -- guestId as the primary key with auto-increment
+    name VARCHAR(255) NOT NULL,                  -- name as a string, not null
+    age INT NOT NULL,                            -- age as an integer, not null
+    roomNo INT NOT NULL,                         -- roomNo as an integer, not null
+    email VARCHAR(255) NOT NULL,                 -- email as a string, not null
+    address TEXT NOT NULL,                       -- address as a string (TEXT for larger text data)
+    idProof BLOB NULL                            -- idProof as binary data, nullable (BLOB to store images or binary data)
+);
+
+
+
+
+CREATE TABLE room (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,    -- id as the primary key with auto-increment
+    floor INT NOT NULL,                       -- floor as an integer, not null
+    category VARCHAR(255) NOT NULL,            -- category as a string (VARCHAR with max length 255), not null
+    price DOUBLE NOT NULL                     -- price as a double (for storing price with decimal places), not null
+);
+
+
+
+
+
+CREATE TABLE bookingDetails (
+    bookingId BIGINT AUTO_INCREMENT PRIMARY KEY,      -- bookingId as the primary key with auto-increment
+    guestId BIGINT NOT NULL,                           -- guestId as a foreign key, not null
+    roomId BIGINT NULL,                                -- roomId as a foreign key, nullable
+    category VARCHAR(255) NOT NULL,                    -- category as a string (VARCHAR with max length 255), not null
+    startDate DATE NOT NULL,                           -- startDate (check-in date), not null
+    endDate DATE NOT NULL,                             -- endDate (check-out date), not null
+
+    -- Foreign Key Constraints
+    FOREIGN KEY (guestId) REFERENCES guest(guestId),  -- guestId references the guest table
+    FOREIGN KEY (roomId) REFERENCES room(id)          -- roomId references the room table
+);
+
+
+
+
+
+
+CREATE TABLE menu (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,    -- id as the primary key with auto-increment
+    foodName VARCHAR(255) NOT NULL,           -- foodItem as a string (VARCHAR with max length 255), not null
+    price DOUBLE NOT NULL                     -- price as a double (for storing price with decimal places), not null
+);
+
+INSERT INTO menu (foodName, price) VALUES
+('Pizza', 747),        -- 747.17 rounded to 747
+('Burger', 457),       -- 456.67 rounded to 457
+('Pasta', 603),        -- 602.75 rounded to 603
+('Sushi', 1079),       -- 1079.17 rounded to 1079
+('Salad', 414),        -- 414.17 rounded to 414
+('Steak', 1300),       -- 1300.25 rounded to 1300
+('Sandwich', 540),     -- 539.50 rounded to 540
+('Fries', 248),        -- 248.17 rounded to 248
+('Ice Cream', 290),    -- 289.67 rounded to 290
+('Smoothie', 354);     -- 353.75 rounded to 354
